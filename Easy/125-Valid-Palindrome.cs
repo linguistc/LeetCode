@@ -1,24 +1,21 @@
 public class Solution {
     public bool IsPalindrome(string s) {
-        //converting the string to lowercase and removing non-alphanumeric characters
-
-        StringBuilder cleanStr = new StringBuilder();
-
-        foreach(char c in s)
-        {
-            if(char.IsLetterOrDigit(c))
-                cleanStr.Append(char.ToLower(c));
-        }
-
-        // Check if the cleaned string is a palindrome
-
-        int left = 0, right = cleanStr.Length - 1;
+        int left = 0;
+        int right = s.Length - 1;
 
         while(left < right)
         {
-            if(cleanStr[left] != cleanStr[right])
+            // Move pointers to the next alphanumeric character
+            while(left < right && !char.IsLetterOrDigit(s[left]))
+                ++left;
+
+            while(left < right && !char.IsLetterOrDigit(s[right]))
+                --right;
+
+            
+            if(char.ToLower(s[left]) != char.ToLower(s[right]))
                 return false;
-        
+
             ++left;
             --right;
         }
